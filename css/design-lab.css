@@ -2,13 +2,13 @@
 .design-lab-container {
     display: grid;
     grid-template-columns: 20% 60% 20%;
-    grid-template-rows: 70% 30%;
+    grid-template-rows: auto 1fr;
     gap: 15px;
     padding: 15px;
     height: 100vh;
 }
 
-/* Panel A: 3D Preview */
+/* Panel A: 3D Preview - Remains Center */
 .preview-panel {
     grid-column: 2;
     grid-row: 1 / 3;
@@ -16,15 +16,7 @@
     flex-direction: column;
 }
 
-#preview-canvas-container {
-    flex: 1;
-    position: relative;
-    background: linear-gradient(180deg, #87CEEB 0%, #ffffff 100%);
-    border-radius: 8px;
-    overflow: hidden;
-}
-
-/* Panel B: Components */
+/* Panel B: Components - Remains Left */
 .components-panel {
     grid-column: 1;
     grid-row: 1 / 3;
@@ -33,74 +25,43 @@
     overflow: hidden;
 }
 
-.components-content {
-    flex: 1;
-    overflow-y: auto;
-    overflow-x: hidden;
-    padding-right: 5px;
-}
-
-.component-category {
-    margin-bottom: 10px;
-    border: 1px solid rgba(76, 175, 80, 0.2);
-    border-radius: 6px;
-    overflow: hidden;
-}
-
-.category-header {
-    background: rgba(76, 175, 80, 0.2);
-    padding: 12px;
-    cursor: pointer;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    font-weight: 600;
-    transition: background 0.3s ease;
-}
-
-.category-header:hover {
-    background: rgba(76, 175, 80, 0.3);
-}
-
-.toggle-icon {
-    transition: transform 0.3s ease;
-}
-
-.category-header.collapsed .toggle-icon {
-    transform: rotate(-90deg);
-}
-
-.category-content {
-    padding: 12px;
-    background: rgba(0, 0, 0, 0.2);
-    max-height: 500px;
-    overflow: hidden;
-    transition: max-height 0.3s ease;
-}
-
-.category-content.collapsed {
-    max-height: 0;
-    padding: 0 12px;
-}
-
-.option-group {
-    margin-bottom: 12px;
-}
-
-.option-group label {
-    display: block;
-    margin-bottom: 5px;
-    font-size: 13px;
-    color: #b0c4de;
-}
-
-/* Panel C: Environment */
+/* Panel C: Environment - Right Top */
 .environment-panel {
     grid-column: 3;
     grid-row: 1;
     display: flex;
     flex-direction: column;
     overflow: hidden;
+}
+
+/* Panel D: Summary - Right Bottom, Moves Up to fill space */
+.summary-panel {
+    grid-column: 3;
+    grid-row: 2;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    /* Ensure it connects visually if needed, but grid gap separates them */
+}
+
+/* Add Helper styles for custom inputs */
+.input-with-custom {
+    display: flex;
+    gap: 5px;
+}
+
+.input-with-custom select {
+    flex: 1;
+}
+
+.custom-input {
+    flex: 1;
+    width: 60px;
+    /* Small width */
+}
+
+.hidden {
+    display: none;
 }
 
 .environment-content {
@@ -264,58 +225,89 @@
     .design-lab-container {
         grid-template-columns: 25% 50% 25%;
     }
-    
+
     .specs-grid {
         grid-template-columns: 1fr;
     }
 }
 
 @media (max-width: 992px) {
-  .design-lab-container {
-      grid-template-columns: 1fr 1fr;
-      grid-template-rows: auto auto auto;
-  }
-  .preview-panel {
-      grid-column: 1 / -1;
-      grid-row: 1;
-  }
-  .components-panel {
-      grid-column: 1;
-      grid-row: 2;
-  }
-  .environment-panel {
-      grid-column: 2;
-      grid-row: 2;
-  }
-  .summary-panel {
-      grid-column: 1 / -1;
-      grid-row: 3;
-  }
+    .design-lab-container {
+        grid-template-columns: 1fr 1fr;
+        grid-template-rows: auto auto auto;
+    }
+
+    .preview-panel {
+        grid-column: 1 / -1;
+        grid-row: 1;
+    }
+
+    .components-panel {
+        grid-column: 1;
+        grid-row: 2;
+    }
+
+    .environment-panel {
+        grid-column: 2;
+        grid-row: 2;
+    }
+
+    .summary-panel {
+        grid-column: 1 / -1;
+        grid-row: 3;
+    }
 }
 
 @media (max-width: 768px) {
-  .design-lab-container {
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-      padding: 10px;
-      height: auto;
-  }
-  .panel {
-      padding: 12px;
-  }
-  .preview-panel { order: 1; min-height: 40vh; }
-  .components-panel { order: 2; }
-  .environment-panel { order: 3; }
-  .summary-panel { order: 4; }
-  .terrain-preview { font-size: 28px; }
-  .spec-label { font-size: 9px; }
-  .spec-value { font-size: 13px; }
-  .launch-button { font-size: 14px; padding: 10px; }
+    .design-lab-container {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        padding: 10px;
+        height: auto;
+    }
+
+    .panel {
+        padding: 12px;
+    }
+
+    .preview-panel {
+        order: 1;
+        min-height: 40vh;
+    }
+
+    .components-panel {
+        order: 2;
+    }
+
+    .environment-panel {
+        order: 3;
+    }
+
+    .summary-panel {
+        order: 4;
+    }
+
+    .terrain-preview {
+        font-size: 28px;
+    }
+
+    .spec-label {
+        font-size: 9px;
+    }
+
+    .spec-value {
+        font-size: 13px;
+    }
+
+    .launch-button {
+        font-size: 14px;
+        padding: 10px;
+    }
 }
 
 @media (max-width: 480px) {
-  .terrain-options {
-      grid-template-columns: 1fr;
-  }
+    .terrain-options {
+        grid-template-columns: 1fr;
+    }
 }
