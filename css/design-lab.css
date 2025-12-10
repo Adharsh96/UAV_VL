@@ -1,0 +1,321 @@
+/* Design Lab Styles */
+.design-lab-container {
+    display: grid;
+    grid-template-columns: 20% 60% 20%;
+    grid-template-rows: 70% 30%;
+    gap: 15px;
+    padding: 15px;
+    height: 100vh;
+}
+
+/* Panel A: 3D Preview */
+.preview-panel {
+    grid-column: 2;
+    grid-row: 1 / 3;
+    display: flex;
+    flex-direction: column;
+}
+
+#preview-canvas-container {
+    flex: 1;
+    position: relative;
+    background: linear-gradient(180deg, #87CEEB 0%, #ffffff 100%);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+/* Panel B: Components */
+.components-panel {
+    grid-column: 1;
+    grid-row: 1 / 3;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+.components-content {
+    flex: 1;
+    overflow-y: auto;
+    overflow-x: hidden;
+    padding-right: 5px;
+}
+
+.component-category {
+    margin-bottom: 10px;
+    border: 1px solid rgba(76, 175, 80, 0.2);
+    border-radius: 6px;
+    overflow: hidden;
+}
+
+.category-header {
+    background: rgba(76, 175, 80, 0.2);
+    padding: 12px;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-weight: 600;
+    transition: background 0.3s ease;
+}
+
+.category-header:hover {
+    background: rgba(76, 175, 80, 0.3);
+}
+
+.toggle-icon {
+    transition: transform 0.3s ease;
+}
+
+.category-header.collapsed .toggle-icon {
+    transform: rotate(-90deg);
+}
+
+.category-content {
+    padding: 12px;
+    background: rgba(0, 0, 0, 0.2);
+    max-height: 500px;
+    overflow: hidden;
+    transition: max-height 0.3s ease;
+}
+
+.category-content.collapsed {
+    max-height: 0;
+    padding: 0 12px;
+}
+
+.option-group {
+    margin-bottom: 12px;
+}
+
+.option-group label {
+    display: block;
+    margin-bottom: 5px;
+    font-size: 13px;
+    color: #b0c4de;
+}
+
+/* Panel C: Environment */
+.environment-panel {
+    grid-column: 3;
+    grid-row: 1;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+.environment-content {
+    flex: 1;
+    overflow-y: auto;
+    overflow-x: hidden;
+    padding-right: 5px;
+}
+
+.env-section {
+    margin-bottom: 20px;
+}
+
+.env-section h3 {
+    font-size: 16px;
+    color: #4CAF50;
+    margin-bottom: 12px;
+    border-bottom: 1px solid rgba(76, 175, 80, 0.3);
+    padding-bottom: 5px;
+}
+
+.wind-indicator {
+    text-align: center;
+    padding: 8px;
+    background: rgba(76, 175, 80, 0.2);
+    border-radius: 4px;
+    margin-top: 8px;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.terrain-options {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+}
+
+.terrain-option {
+    background: rgba(0, 0, 0, 0.3);
+    border: 2px solid transparent;
+    border-radius: 8px;
+    padding: 15px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.terrain-option:hover {
+    background: rgba(76, 175, 80, 0.1);
+    border-color: rgba(76, 175, 80, 0.5);
+}
+
+.terrain-option.selected {
+    background: rgba(76, 175, 80, 0.2);
+    border-color: #4CAF50;
+}
+
+.terrain-preview {
+    font-size: 40px;
+    margin-bottom: 8px;
+}
+
+.terrain-name {
+    font-size: 12px;
+    font-weight: 600;
+}
+
+/* Panel D: Summary */
+.summary-panel {
+    grid-column: 3;
+    grid-row: 2;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+.summary-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+    overflow-x: hidden;
+    padding-right: 5px;
+}
+
+.specs-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+    margin-bottom: 10px;
+    overflow-y: auto;
+    max-height: 180px;
+}
+
+.spec-item {
+    background: rgba(0, 0, 0, 0.3);
+    padding: 8px;
+    border-radius: 6px;
+    border: 1px solid rgba(76, 175, 80, 0.2);
+}
+
+.spec-label {
+    font-size: 10px;
+    color: #b0c4de;
+    margin-bottom: 3px;
+}
+
+.spec-value {
+    font-size: 14px;
+    font-weight: 700;
+    color: #4CAF50;
+}
+
+.design-tips {
+    background: rgba(255, 193, 7, 0.1);
+    border: 1px solid rgba(255, 193, 7, 0.3);
+    border-radius: 6px;
+    padding: 8px;
+    margin-bottom: 10px;
+    min-height: 40px;
+    max-height: 80px;
+    overflow-y: auto;
+}
+
+.tip {
+    font-size: 13px;
+    line-height: 1.5;
+    margin-bottom: 8px;
+}
+
+.tip:last-child {
+    margin-bottom: 0;
+}
+
+.launch-button {
+    width: 100%;
+    padding: 12px;
+    font-size: 15px;
+    font-weight: 700;
+    background: linear-gradient(135deg, #FF5722 0%, #F44336 100%);
+    margin-top: auto;
+    box-shadow: 0 4px 8px rgba(255, 87, 34, 0.4);
+}
+
+.launch-button:hover {
+    background: linear-gradient(135deg, #F44336 0%, #E53935 100%);
+}
+
+.launch-button:disabled {
+    background: rgba(100, 100, 100, 0.5);
+}
+
+/* Responsive Design Lab */
+@media (max-width: 1600px) {
+    .design-lab-container {
+        grid-template-columns: 18% 64% 18%;
+    }
+}
+
+@media (max-width: 1280px) {
+    .design-lab-container {
+        grid-template-columns: 25% 50% 25%;
+    }
+    
+    .specs-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 992px) {
+  .design-lab-container {
+      grid-template-columns: 1fr 1fr;
+      grid-template-rows: auto auto auto;
+  }
+  .preview-panel {
+      grid-column: 1 / -1;
+      grid-row: 1;
+  }
+  .components-panel {
+      grid-column: 1;
+      grid-row: 2;
+  }
+  .environment-panel {
+      grid-column: 2;
+      grid-row: 2;
+  }
+  .summary-panel {
+      grid-column: 1 / -1;
+      grid-row: 3;
+  }
+}
+
+@media (max-width: 768px) {
+  .design-lab-container {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      padding: 10px;
+      height: auto;
+  }
+  .panel {
+      padding: 12px;
+  }
+  .preview-panel { order: 1; min-height: 40vh; }
+  .components-panel { order: 2; }
+  .environment-panel { order: 3; }
+  .summary-panel { order: 4; }
+  .terrain-preview { font-size: 28px; }
+  .spec-label { font-size: 9px; }
+  .spec-value { font-size: 13px; }
+  .launch-button { font-size: 14px; padding: 10px; }
+}
+
+@media (max-width: 480px) {
+  .terrain-options {
+      grid-template-columns: 1fr;
+  }
+}

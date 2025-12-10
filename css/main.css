@@ -1,0 +1,250 @@
+/* Main Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+    color: #212529;
+    overflow: hidden;
+    height: 100vh;
+    -webkit-user-select: none; /* Safari */
+    -ms-user-select: none; /* IE 10 and IE 11 */
+    user-select: none; /* Standard syntax */
+}
+
+.section {
+    display: none;
+    width: 100%;
+    height: 100vh;
+}
+
+.section.active {
+    display: block;
+}
+
+/* Loading Screen */
+#loading-screen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.95);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 10000;
+    transition: opacity 0.5s ease;
+}
+
+#loading-screen.hidden {
+    opacity: 0;
+    pointer-events: none;
+}
+
+.loading-content {
+    text-align: center;
+}
+
+.spinner {
+    width: 60px;
+    height: 60px;
+    border: 4px solid rgba(255, 255, 255, 0.1);
+    border-top: 4px solid #4CAF50;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    margin: 0 auto 20px;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+.loading-text {
+    font-size: 18px;
+    color: #212529;
+}
+
+/* Common Panel Styles */
+.panel {
+    background: rgba(20, 30, 48, 0.5);
+    backdrop-filter: blur(8px) saturate(120%);
+    -webkit-backdrop-filter: blur(8px) saturate(120%);
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    border-radius: 10px;
+    padding: 12px;
+    overflow: hidden;
+}
+
+.panel-header {
+    border-bottom: 2px solid rgba(76, 175, 80, 0.5);
+    padding-bottom: 10px;
+    margin-bottom: 15px;
+}
+
+.panel-header h2 {
+    font-size: 20px;
+    font-weight: 600;
+    color: #4CAF50;
+}
+
+/* Scrollbar Styling */
+::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: rgba(76, 175, 80, 0.5);
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: rgba(76, 175, 80, 0.7);
+}
+
+/* Form Elements */
+select, input[type="range"] {
+    width: 100%;
+    padding: 8px;
+    background: rgba(0, 0, 0, 0.3);
+    border: 1px solid rgba(76, 175, 80, 0.3);
+    border-radius: 4px;
+    color: #212529;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+select:focus, input:focus {
+    outline: none;
+    border-color: #4CAF50;
+}
+
+select option {
+    background: #1a2332;
+    color: #212529;
+}
+
+input[type="range"] {
+    padding: 0;
+    height: 6px;
+    -webkit-appearance: none;
+    appearance: none;
+}
+
+input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 16px;
+    height: 16px;
+    background: #4CAF50;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+input[type="range"]::-moz-range-thumb {
+    width: 16px;
+    height: 16px;
+    background: #4CAF50;
+    border-radius: 50%;
+    cursor: pointer;
+    border: none;
+}
+
+/* Buttons */
+button {
+    padding: 10px 20px;
+    background: linear-gradient(135deg, #4CAF50 0%, #45a049 100%);
+    border: none;
+    border-radius: 6px;
+    color: white;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+button:hover {
+    transform: translateY(-2px);
+}
+
+button:active {
+    transform: translateY(0);
+}
+
+button:disabled {
+    background: rgba(100, 100, 100, 0.5);
+    cursor: not-allowed;
+    transform: none;
+}
+
+/* Utility Classes */
+.hidden {
+    display: none !important;
+}
+
+.highlight {
+    border: 2px solid #4CAF50;
+    background: rgba(76, 175, 80, 0.1);
+}
+
+/* Responsive */
+@media (max-width: 1280px) {
+    body {
+        font-size: 14px;
+    }
+    
+    .panel-header h2 {
+        font-size: 18px;
+    }
+}
+
+@media (max-width: 992px) {
+    body {
+        font-size: 13px;
+    }
+    .panel-header h2 {
+        font-size: 16px;
+    }
+}
+
+@media (max-width: 768px) {
+    body {
+        font-size: 12px;
+        overflow: auto;
+        height: auto;
+        min-height: 100dvh;
+    }
+    .section {
+        height: auto;
+        min-height: 100dvh;
+    }
+    button {
+        padding: 8px 14px;
+        font-size: 12px;
+    }
+    select, input[type="range"] {
+        padding: 6px;
+        font-size: 12px;
+    }
+    .panel-header h2 {
+        font-size: 15px;
+    }
+}
+
+@media (max-width: 480px) {
+    body { font-size: 11px; }
+    button { padding: 7px 12px; font-size: 11px; }
+    select, input[type="range"] { padding: 5px; font-size: 11px; }
+    .panel-header h2 { font-size: 14px; }
+}

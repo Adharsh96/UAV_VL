@@ -1,0 +1,708 @@
+/* Simulator Styles */
+.simulator-container {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    overflow: hidden;
+}
+
+#simulator-canvas-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: #000000;
+}
+
+/* HUD Overlay */
+#hud-overlay {
+    position: absolute;
+    top: 48px; /* below top bar */
+    left: 0;
+    right: 0;
+    bottom: 0;
+    pointer-events: none;
+    z-index: 45;
+    color: #E0E0E0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+#hud-horizon {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 60%;
+    max-width: 900px;
+    height: 50%;
+    transform: translate(-50%, -50%);
+    overflow: hidden;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 6px;
+    background: rgba(0,0,0,0.1);
+}
+
+#hud-telemetry {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    width: 220px;
+    background: rgba(255, 255, 255, 0.15);
+    border: 1px solid rgba(255,255,255,0.35);
+    border-radius: 6px;
+    padding: 8px 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.hud-row {
+    display: flex;
+    justify-content: space-between;
+    font-size: 11px;
+}
+.hud-row .label { opacity: 0.8; }
+.hud-row .value { font-weight: 700; }
+
+#hud-horizon-mover {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 200%;
+    height: 200%;
+    transform: translate(-50%, -50%);
+}
+
+.hud-sky {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 50%;
+    background: linear-gradient(180deg, rgba(135,206,235,0.9), rgba(135,206,235,0.6));
+}
+
+.hud-ground {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 50%;
+    background: linear-gradient(180deg, rgba(139,69,19,0.9), rgba(139,69,19,1));
+}
+
+.hud-horizon-line {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: #ffffff;
+    box-shadow: 0 0 2px rgba(255,255,255,0.6);
+}
+
+#hud-center-marker {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 80px;
+    height: 2px;
+    background: #ff3d3d;
+    transform: translate(-50%, -50%);
+}
+
+#hud-roll-scale {
+    position: absolute;
+    top: 5px;
+    left: 50%;
+    width: 300px;
+    height: 140px;
+    transform: translateX(-50%);
+}
+
+#hud-roll-pointer {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    width: 0;
+    height: 0;
+    border-left: 8px solid transparent;
+    border-right: 8px solid transparent;
+    border-bottom: 12px solid #ffffff;
+    transform: translateX(-50%);
+}
+
+.roll-tick {
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    width: 2px;
+    height: 18px;
+    background: #ffffff;
+    transform-origin: bottom center;
+    transform: translateX(-50%) rotate(calc(var(--a) * 1deg)) translateY(-120px);
+    opacity: 0.85;
+}
+
+.roll-label {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translate(-50%, 0);
+    font-size: 12px;
+    opacity: 0.8;
+}
+
+.hud-tape {
+    position: absolute;
+    top: 70px;
+    width: 140px;
+    height: 200px;
+    background: rgba(255, 255, 255, 0.15);
+    border: 1px solid rgba(255,255,255,0.35);
+    border-radius: 6px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    backdrop-filter: blur(2px);
+}
+
+.hud-tape.left { left: 20px; }
+.hud-tape.right { right: 20px; }
+
+.tape-title { font-size: 11px; opacity: 0.9; }
+.tape-value { font-size: 18px; font-weight: 700; }
+
+#hud-compass {
+    position: absolute;
+    top: 65px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-weight: 700;
+    background: rgba(255, 255, 255, 0.15);
+    padding: 4px 8px;
+    border-radius: 4px;
+    border: 1px solid rgba(255,255,255,0.35);
+}
+
+#hud-status {
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 12px;
+    align-items: center;
+    background: rgba(255, 255, 255, 0.15);
+    border: 1px solid rgba(255,255,255,0.35);
+    border-radius: 6px;
+    padding: 6px 10px;
+}
+
+#hud-status #armed-status {
+    padding: 2px 8px;
+    border-radius: 4px;
+    background: rgba(244, 67, 54, 0.4);
+}
+
+#hud-status #armed-status.armed {
+    background: rgba(76, 175, 80, 0.4);
+}
+
+.rc-sensitivity {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: #b0c4de;
+    font-size: 12px;
+    margin-bottom: 10px;
+}
+
+.rc-sensitivity input {
+    width: 100%;
+}
+
+/* Top Bar */
+.top-bar {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 48px;
+    background: rgba(255, 255, 255, 0.12);
+    backdrop-filter: blur(10px) saturate(120%);
+    -webkit-backdrop-filter: blur(10px) saturate(120%);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 14px;
+    z-index: 100;
+}
+
+.camera-controls {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.top-bar-controls {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.camera-controls label {
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.camera-controls select {
+    width: 180px;
+}
+
+.sim-title {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 20px;
+    font-weight: 700;
+    color: #E0E0E0;
+    letter-spacing: 1px;
+}
+
+.exit-button {
+    background: rgba(244, 67, 54, 0.8);
+}
+
+.exit-button:hover {
+    background: rgba(244, 67, 54, 1);
+}
+
+/* Telemetry Panel */
+.telemetry-panel {
+    position: absolute;
+    top: 80px;
+    right: 20px;
+    width: 240px;
+    background: rgba(255, 255, 255, 0.12);
+    backdrop-filter: blur(8px) saturate(120%);
+    -webkit-backdrop-filter: blur(8px) saturate(120%);
+    border: 1px solid rgba(255,255,255,0.35);
+    border-radius: 8px;
+    padding: 12px;
+    z-index: 50;
+}
+
+.telemetry-header {
+    font-size: 15px;
+    font-weight: 700;
+    color: #E0E0E0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.35);
+    padding-bottom: 6px;
+    margin-bottom: 10px;
+    text-align: center;
+}
+
+.telemetry-content {
+    max-height: 500px;
+    overflow-y: auto;
+}
+
+.telemetry-section {
+    margin-bottom: 15px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid rgba(76, 175, 80, 0.2);
+}
+
+.telemetry-section:last-child {
+    border-bottom: none;
+}
+
+.telemetry-item {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 6px;
+    font-size: 12px;
+}
+
+.telem-label {
+    color: #E0E0E0;
+}
+
+.telem-value {
+    font-weight: 700;
+    color: #E0E0E0;
+    font-family: 'Courier New', monospace;
+}
+
+.status-item {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+}
+
+.status-label {
+    color: #E0E0E0;
+    font-size: 13px;
+}
+
+.status-value {
+    font-weight: 700;
+    font-size: 14px;
+    padding: 4px 12px;
+    border-radius: 4px;
+    font-family: 'Courier New', monospace;
+}
+
+#armed-status {
+    background: rgba(244, 67, 54, 0.3);
+    color: #F44336;
+}
+
+#armed-status.armed {
+    background: rgba(76, 175, 80, 0.3);
+    color: #4CAF50;
+}
+
+.battery-bar {
+    width: 100%;
+    height: 18px;
+    background: rgba(255, 255, 255, 0.15);
+    border-radius: 10px;
+    overflow: hidden;
+    margin: 8px 0;
+    border: 1px solid rgba(255, 255, 255, 0.35);
+}
+
+.battery-fill {
+    height: 100%;
+    width: 100%;
+    background: linear-gradient(90deg, #4CAF50 0%, #8BC34A 100%);
+    transition: width 0.3s ease, background 0.3s ease;
+}
+
+.battery-fill.warning {
+    background: linear-gradient(90deg, #FFC107 0%, #FFD54F 100%);
+}
+
+.battery-fill.critical {
+    background: linear-gradient(90deg, #F44336 0%, #E57373 100%);
+}
+
+.artificial-horizon {
+    width: 100%;
+    height: 100px;
+    background: linear-gradient(180deg, #87CEEB 0%, #8B4513 50%, #8B4513 100%);
+    border-radius: 8px;
+    position: relative;
+    overflow: hidden;
+    margin-top: 10px;
+}
+
+.horizon-line {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: #ffffff;
+    transform: translateY(-50%);
+    transition: transform 0.1s ease;
+}
+
+.horizon-center {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 40px;
+    height: 40px;
+    border: 2px solid #ffffff;
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+}
+
+/* RC Controller */
+.rc-controller {
+    position: absolute;
+    bottom: 16px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 320px;
+    background: rgba(255, 255, 255, 0.12);
+    backdrop-filter: blur(8px) saturate(120%);
+    -webkit-backdrop-filter: blur(8px) saturate(120%);
+    border: 1px solid rgba(255,255,255,0.35);
+    border-radius: 8px;
+    padding: 12px;
+    z-index: 50;
+}
+
+.rc-header {
+    font-size: 16px;
+    font-weight: 700;
+    color: #4CAF50;
+    border-bottom: 2px solid rgba(76, 175, 80, 0.5);
+    padding-bottom: 8px;
+    margin-bottom: 12px;
+    text-align: center;
+}
+
+.rc-sticks {
+    display: flex;
+    justify-content: space-between;
+    gap: 15px;
+    margin-bottom: 15px;
+}
+
+.stick-container {
+    flex: 1;
+}
+
+.stick-label {
+    text-align: center;
+    font-size: 11px;
+    color: #E0E0E0;
+    margin-bottom: 8px;
+}
+
+.stick-boundary {
+    width: 140px;
+    height: 140px;
+    background: rgba(0, 0, 0, 0.4);
+    border: 2px solid rgba(76, 175, 80, 0.5);
+    border-radius: 50%;
+    position: relative;
+    margin: 0 auto;
+    cursor: pointer;
+}
+
+.stick-crosshair {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 100%;
+    height: 100%;
+    transform: translate(-50%, -50%);
+}
+
+.stick-crosshair::before,
+.stick-crosshair::after {
+    content: '';
+    position: absolute;
+    background: rgba(76, 175, 80, 0.3);
+}
+
+.stick-crosshair::before {
+    top: 50%;
+    left: 0;
+    right: 0;
+    height: 1px;
+    transform: translateY(-50%);
+}
+
+.stick-crosshair::after {
+    left: 50%;
+    top: 0;
+    bottom: 0;
+    width: 1px;
+    transform: translateX(-50%);
+}
+
+.stick {
+    width: 40px;
+    height: 40px;
+    background: radial-gradient(circle, #4CAF50 0%, #2E7D32 100%);
+    border: 2px solid #ffffff;
+    border-radius: 50%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    cursor: grab;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
+    transition: box-shadow 0.2s ease;
+}
+
+.stick:active {
+    cursor: grabbing;
+    box-shadow: 0 4px 12px rgba(76, 175, 80, 0.6);
+}
+
+.rc-buttons {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 10px;
+}
+
+.rc-btn {
+    flex: 1;
+    padding: 12px;
+    font-size: 13px;
+    font-weight: 700;
+}
+
+#arm-button {
+    background: linear-gradient(135deg, #4CAF50 0%, #45a049 100%);
+}
+
+#rth-button {
+    background: linear-gradient(135deg, #2196F3 0%, #1976D2 100%);
+}
+
+#emergency-button {
+    background: linear-gradient(135deg, #F44336 0%, #D32F2F 100%);
+}
+
+.keyboard-hint {
+    text-align: center;
+    font-size: 10px;
+    color: #E0E0E0;
+    padding: 6px;
+    background: rgba(255, 255, 255, 0.12);
+    border-radius: 4px;
+}
+
+/* Flight Data Graphs */
+.graphs-panel {
+    position: absolute;
+    top: 80px;
+    left: 20px;
+    width: 560px;
+    height: 240px;
+    background: rgba(255, 255, 255, 0.12);
+    backdrop-filter: blur(8px) saturate(120%);
+    -webkit-backdrop-filter: blur(8px) saturate(120%);
+    border: 1px solid rgba(255,255,255,0.35);
+    border-radius: 8px;
+    padding: 12px;
+    z-index: 50;
+    display: flex;
+    flex-direction: column;
+}
+
+.graphs-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 15px;
+    font-weight: 700;
+    color: #E0E0E0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.35);
+    padding-bottom: 6px;
+    margin-bottom: 10px;
+    flex-shrink: 0; /* Prevent header from shrinking */
+}
+
+.graph-controls {
+    display: flex;
+    gap: 8px;
+}
+
+.graph-btn {
+    padding: 6px 12px;
+    font-size: 12px;
+    min-width: auto;
+}
+
+.graph-canvas-container {
+    flex-grow: 1;
+    position: relative; /* Needed for the canvas to be positioned correctly */
+    overflow: hidden;
+}
+
+#flight-graph {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+/* Responsive Simulator */
+@media (max-width: 1600px) {
+    .telemetry-panel {
+        width: 250px;
+    }
+    
+    .rc-controller {
+        width: 320px;
+    }
+    
+    .stick-boundary {
+        width: 120px;
+        height: 120px;
+    }
+    
+    .graphs-panel {
+        width: 550px;
+        height: 250px;
+    }
+}
+
+@media (max-width: 1280px) {
+    .telemetry-panel {
+        width: 220px;
+        font-size: 12px;
+    }
+    
+    .rc-controller {
+        width: 280px;
+    }
+    
+    .stick-boundary {
+        width: 100px;
+        height: 100px;
+    }
+    
+    .graphs-panel {
+        width: 450px;
+        height: 220px;
+    }
+}
+
+@media (max-width: 992px) {
+  .top-bar { height: 52px; padding: 0 12px; }
+  .sim-title { font-size: 20px; }
+  .camera-controls label { font-size: 12px; }
+  .camera-controls select { width: 140px; }
+
+  .telemetry-panel { width: 200px; top: 64px; right: 12px; }
+  .telemetry-content { max-height: 420px; }
+  .graphs-panel { width: 70vw; height: 200px; left: 12px; top: 64px; }
+  .rc-controller { width: 70vw; }
+  .stick-boundary { width: 90px; height: 90px; }
+  .stick { width: 34px; height: 34px; }
+}
+
+@media (max-width: 768px) {
+  .top-bar { height: 46px; padding: 0 10px; }
+  .sim-title { font-size: 18px; letter-spacing: 1px; }
+  .top-bar-controls { gap: 10px; }
+  .camera-controls select { width: 120px; }
+  .simulator-container { height: 100dvh; }
+  .telemetry-panel { width: calc(50vw - 16px); top: 56px; right: 8px; padding: 12px; }
+  .telemetry-header { font-size: 14px; }
+  .telemetry-item { font-size: 12px; }
+  .status-label { font-size: 12px; }
+  .status-value { font-size: 13px; }
+  .battery-bar { height: 16px; }
+  .graphs-panel { width: calc(50vw - 16px); height: 180px; left: 8px; top: 56px; }
+  .rc-controller { width: 90vw; bottom: 12px; }
+  .rc-btn { padding: 10px; font-size: 12px; }
+  .stick-boundary { width: 80px; height: 80px; }
+  .stick { width: 30px; height: 30px; }
+
+  .hud-tape { width: 120px; height: 160px; top: 60px; }
+  #hud-compass { top: 56px; }
+}
+
+@media (max-width: 480px) {
+  .sim-title { display: none; }
+  .camera-controls label { display: none; }
+  .top-bar-controls { gap: 8px; }
+  .camera-controls select { width: 110px; }
+  .telemetry-panel { width: calc(50vw - 12px); right: 6px; top: 52px; }
+  .graphs-panel { width: calc(50vw - 12px); left: 6px; top: 52px; }
+  .rc-controller { width: calc(100vw - 16px); left: 8px; transform: none; }
+}

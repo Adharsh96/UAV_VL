@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UAV Virtual Lab Simulator</title>
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/design-lab.css">
+    <link rel="stylesheet" href="css/simulator.css">
+</head>
+<body>
+    <!-- Design Lab Section -->
+    <div id="design-lab" class="section active">
+        <div class="design-lab-container">
+            <!-- Panel A: 3D Preview Window -->
+            <div class="panel preview-panel">
+                <div class="panel-header">
+                    <h2>UAV Preview</h2>
+                </div>
+                <div id="preview-canvas-container"></div>
+            </div>
+
+            <!-- Panel B: Component Selection Menu -->
+            <div class="panel components-panel">
+                <div class="panel-header">
+                    <h2>Components</h2>
+                </div>
+                <div class="components-content">
+                    <!-- Frame/Body -->
+                    <div class="component-category">
+                        <div class="category-header" data-category="frame">
+                            <span>🛠️ Frame/Body</span>
+                            <span class="toggle-icon">▼</span>
+                        </div>
+                        <div class="category-content" id="frame-options">
+                            <div class="option-group">
+                                <label>Type:</label>
+                                <select id="frame-type">
+                                    <option value="quad-x">Quad-rotor (X)</option>
+                                    <option value="quad-plus">Quad-rotor (+)</option>
+                                    <option value="hexa">Hexa-rotor</option>
+                                    <option value="octa">Octa-rotor</option>
+                                </select>
+                            </div>
+                            <div class="option-group">
+                                <label>Material:</label>
+                                <select id="frame-material">
+                                    <option value="carbon">Carbon Fiber (1.0x)</option>
+                                    <option value="aluminum">Aluminum (1.3x)</option>
+                                    <option value="plastic">Plastic (1.5x)</option>
+                                </select>
+                            </div>
+                            <div class="option-group">
+                                <label>Size:</label>
+                                <select id="frame-size">
+                                    <option value="250">250mm</option>
+                                    <option value="450" selected>450mm</option>
+                                    <option value="650">650mm</option>
+                                    <option value="850">850mm</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Propellers -->
+                    <div class="component-category">
+                        <div class="category-header" data-category="propellers">
+                            <span>🌀 Propellers</span>
+                            <span class="toggle-icon">▼</span>
+                        </div>
+                        <div class="category-content" id="propeller-options">
+                            <div class="option-group">
+                                <label>Size:</label>
+                                <select id="prop-size">
+                                    <option value="5">5"</option>
+                                    <option value="6">6"</option>
+                                    <option value="7">7"</option>
+                                    <option value="8" selected>8"</option>
+                                    <option value="10">10"</option>
+                                    <option value="12">12"</option>
+                                </select>
+                            </div>
+                            <div class="option-group">
+                                <label>Pitch:</label>
+                                <select id="prop-pitch">
+                                    <option value="4.5">4.5"</option>
+                                    <option value="5" selected>5"</option>
+                                    <option value="5.5">5.5"</option>
+                                    <option value="6">6"</option>
+                                </select>
+                            </div>
+                            <div class="option-group">
+                                <label>Blades:</label>
+                                <select id="prop-blades">
+                                    <option value="2" selected>2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                </select>
+                            </div>
+                            <div class="option-group">
+                                <label>Material:</label>
+                                <select id="prop-material">
+                                    <option value="plastic" selected>Plastic</option>
+                                    <option value="carbon">Carbon Fiber</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Motors -->
+                    <div class="component-category">
+                        <div class="category-header" data-category="motors">
+                            <span>⚡ Motors</span>
+                            <span class="toggle-icon">▼</span>
+                        </div>
+                        <div class="category-content" id="motor-options">
+                            <div class="option-group">
+                                <label>KV Rating:</label>
+                                <select id="motor-kv">
+                                    <option value="1000">1000 KV</option>
+                                    <option value="1500">1500 KV</option>
+                                    <option value="2300" selected>2300 KV</option>
+                                    <option value="2700">2700 KV</option>
+                                    <option value="3600">3600 KV</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Battery -->
+                    <div class="component-category">
+                        <div class="category-header" data-category="battery">
+                            <span>🔋 Battery</span>
+                            <span class="toggle-icon">▼</span>
+                        </div>
+                        <div class="category-content" id="battery-options">
+                            <div class="option-group">
+                                <label>Cell Count:</label>
+                                <select id="battery-cells">
+                                    <option value="3">3S (11.1V)</option>
+                                    <option value="4" selected>4S (14.8V)</option>
+                                    <option value="6">6S (22.2V)</option>
+                                </select>
+                            </div>
+                            <div class="option-group">
+                                <label>Capacity:</label>
+                                <select id="battery-capacity">
+                                    <option value="1300">1300 mAh</option>
+                                    <option value="2200">2200 mAh</option>
+                                    <option value="3300" selected>3300 mAh</option>
+                                    <option value="5000">5000 mAh</option>
+                                    <option value="8000">8000 mAh</option>
+                                    <option value="10000">10000 mAh</option>
+                                </select>
+                            </div>
+                            <div class="option-group">
+                                <label>C-Rating:</label>
+                                <select id="battery-c-rating">
+                                    <option value="25">25C</option>
+                                    <option value="45" selected>45C</option>
+                                    <option value="65">65C</option>
+                                    <option value="90">90C</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Flight Controller -->
+                    <div class="component-category">
+                        <div class="category-header" data-category="fc">
+                            <span>🎮 Flight Controller</span>
+                            <span class="toggle-icon">▼</span>
+                        </div>
+                        <div class="category-content" id="fc-options">
+                            <div class="option-group">
+                                <label>Type:</label>
+                                <select id="fc-type">
+                                    <option value="basic">Basic Stabilization</option>
+                                    <option value="gps" selected>GPS-enabled</option>
+                                    <option value="advanced">Advanced (Obstacle Avoidance)</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Payload -->
+                    <div class="component-category">
+                        <div class="category-header" data-category="payload">
+                            <span>📦 Payload (Optional)</span>
+                            <span class="toggle-icon">▼</span>
+                        </div>
+                        <div class="category-content" id="payload-options">
+                            <div class="option-group">
+                                <label>Type:</label>
+                                <select id="payload-type">
+                                    <option value="none" selected>None</option>
+                                    <option value="camera-small">Camera (50g)</option>
+                                    <option value="camera-medium">Camera (100g)</option>
+                                    <option value="camera-large">Camera (200g)</option>
+                                    <option value="sensor">Sensors (50g)</option>
+                                    <option value="delivery">Delivery Box (300g)</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Panel C: Environment Settings -->
+            <div class="panel environment-panel">
+                <div class="panel-header">
+                    <h2>Environment</h2>
+                </div>
+                <div class="environment-content">
+                    <div class="env-section">
+                        <h3>Weather Conditions</h3>
+                        <div class="option-group">
+                            <label>Wind Speed: <span id="wind-speed-value">5</span> m/s</label>
+                            <input type="range" id="wind-speed" min="0" max="30" value="5" step="0.5">
+                            <div class="wind-indicator" id="wind-indicator">Light Breeze</div>
+                        </div>
+                        <div class="option-group">
+                            <label>Wind Direction: <span id="wind-direction-value">0</span>°</label>
+                            <input type="range" id="wind-direction" min="0" max="360" value="0" step="15">
+                        </div>
+                        <div class="option-group">
+                            <label>Visibility: <span id="visibility-value">5</span> km</label>
+                            <input type="range" id="visibility" min="0.1" max="10" value="5" step="0.1">
+                        </div>
+                        <div class="option-group">
+                            <label>Temperature: <span id="temperature-value">20</span>°C</label>
+                            <input type="range" id="temperature" min="-20" max="45" value="20" step="1">
+                        </div>
+                    </div>
+
+                    <div class="env-section">
+                        <h3>Terrain Selection</h3>
+                        <div class="terrain-options">
+                            <div class="terrain-option" data-terrain="flat">
+                                <div class="terrain-preview">🌾</div>
+                                <div class="terrain-name">Flat Terrain</div>
+                            </div>
+                            <div class="terrain-option" data-terrain="hilly">
+                                <div class="terrain-preview">⛰️</div>
+                                <div class="terrain-name">Hilly Terrain</div>
+                            </div>
+                            <div class="terrain-option selected" data-terrain="urban">
+                                <div class="terrain-preview">🏙️</div>
+                                <div class="terrain-name">Urban</div>
+                            </div>
+                            <div class="terrain-option" data-terrain="desert">
+                                <div class="terrain-preview">🏜️</div>
+                                <div class="terrain-name">Desert</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Panel D: Summary & Launch Section -->
+            <div class="panel summary-panel">
+                <div class="panel-header">
+                    <h2>UAV Specifications</h2>
+                </div>
+                <div class="summary-content">
+                    <div class="specs-grid">
+                        <div class="spec-item">
+                            <div class="spec-label">Total Mass</div>
+                            <div class="spec-value" id="total-mass">0 g</div>
+                        </div>
+                        <div class="spec-item">
+                            <div class="spec-label">Total Thrust</div>
+                            <div class="spec-value" id="total-thrust">0 g</div>
+                        </div>
+                        <div class="spec-item highlight">
+                            <div class="spec-label">Thrust-to-Weight Ratio</div>
+                            <div class="spec-value" id="twr">0.0</div>
+                        </div>
+                        <div class="spec-item">
+                            <div class="spec-label">Estimated Flight Time</div>
+                            <div class="spec-value" id="flight-time">0 min</div>
+                        </div>
+                        <div class="spec-item">
+                            <div class="spec-label">Max Speed</div>
+                            <div class="spec-value" id="max-speed">0 m/s</div>
+                        </div>
+                        <div class="spec-item">
+                            <div class="spec-label">Power (Hover/Max)</div>
+                            <div class="spec-value" id="power">0W / 0W</div>
+                        </div>
+                    </div>
+
+                    <div class="design-tips" id="design-tips">
+                        <div class="tip">💡 Configure your UAV to see recommendations</div>
+                    </div>
+
+                    <button id="launch-simulator" class="launch-button">
+                        <span>🚁 LAUNCH SIMULATOR</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Simulator Section -->
+    <div id="simulator" class="section">
+        <div class="simulator-container">
+            <!-- Main 3D Canvas -->
+            <div id="simulator-canvas-container"></div>
+
+            <!-- Top UI Bar -->
+            <div class="top-bar">
+                <button id="exit-simulator" class="exit-button">← Back to Design Lab</button>
+                <div class="sim-title">UAV SIMULATOR</div>
+                <div class="top-bar-controls">
+                    <div class="camera-controls">
+                        <label>Camera:</label>
+                        <select id="camera-mode">
+                            <option value="chase" selected>Chase</option>
+                            <option value="fpv">First Person (FPV)</option>
+                            <option value="free">Free Camera</option>
+                            <option value="top">Top-Down</option>
+                            <option value="side">Side View</option>
+                        </select>
+                    </div>
+                    <div class="camera-controls">
+                        <label>Mode:</label>
+                        <select id="flight-mode">
+                            <option value="stabilize" selected>Stabilize</option>
+                            <option value="loiter">Loiter</option>
+                            <option value="rth">Return To Home</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Telemetry Display (Top Right) -->
+            <div class="telemetry-panel">
+                <div class="telemetry-header">TELEMETRY</div>
+                <div class="telemetry-content">
+                    <div class="telemetry-section">
+                        <div class="telemetry-item">
+                            <span class="telem-label">Altitude:</span>
+                            <span class="telem-value" id="telem-altitude">0.0 m</span>
+                        </div>
+                        <div class="telemetry-item">
+                            <span class="telem-label">V-Speed:</span>
+                            <span class="telem-value" id="telem-vspeed">0.0 m/s</span>
+                        </div>
+                        <div class="telemetry-item">
+                            <span class="telem-label">Ground Speed:</span>
+                            <span class="telem-value" id="telem-speed">0.0 m/s</span>
+                        </div>
+                        <div class="telemetry-item">
+                            <span class="telem-label">Heading:</span>
+                            <span class="telem-value" id="telem-heading">0°</span>
+                        </div>
+                        <div class="telemetry-item">
+                            <span class="telem-label">Distance:</span>
+                            <span class="telem-value" id="telem-distance">0.0 m</span>
+                        </div>
+                    </div>
+
+                    <div class="telemetry-section">
+                        <div class="status-item">
+                            <span class="status-label">Status:</span>
+                            <span class="status-value" id="armed-status">DISARMED</span>
+                        </div>
+                        <div class="telemetry-item">
+                            <span class="telem-label">Battery:</span>
+                            <span class="telem-value" id="telem-battery">100%</span>
+                        </div>
+                        <div class="battery-bar">
+                            <div class="battery-fill" id="battery-fill"></div>
+                        </div>
+                        <div class="telemetry-item">
+                            <span class="telem-label">Voltage:</span>
+                            <span class="telem-value" id="telem-voltage">14.8V</span>
+                        </div>
+                        <div class="telemetry-item">
+                            <span class="telem-label">Current:</span>
+                            <span class="telem-value" id="telem-current">0.0A</span>
+                        </div>
+                    </div>
+
+                    <div class="telemetry-section">
+                        <div class="telemetry-item">
+                            <span class="telem-label">Pitch:</span>
+                            <span class="telem-value" id="telem-pitch">0.0°</span>
+                        </div>
+                        <div class="telemetry-item">
+                            <span class="telem-label">Roll:</span>
+                            <span class="telem-value" id="telem-roll">0.0°</span>
+                        </div>
+                        <div class="telemetry-item">
+                            <span class="telem-label">Yaw:</span>
+                            <span class="telem-value" id="telem-yaw">0.0°</span>
+                        </div>
+                    </div>
+
+                    <div class="artificial-horizon" id="artificial-horizon">
+                        <div class="horizon-line"></div>
+                        <div class="horizon-center"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- RC Controller Interface (Bottom Right) -->
+            <div class="rc-controller">
+                <div class="rc-header">RC CONTROLLER</div>
+                <div class="rc-sticks">
+                    <div class="stick-container">
+                        <div class="stick-label">Throttle / Yaw</div>
+                        <div class="stick-boundary" id="left-stick-boundary">
+                            <div class="stick" id="left-stick"></div>
+                            <div class="stick-crosshair"></div>
+                        </div>
+                    </div>
+                    <div class="stick-container">
+                        <div class="stick-label">Pitch / Roll</div>
+                        <div class="stick-boundary" id="right-stick-boundary">
+                            <div class="stick" id="right-stick"></div>
+                            <div class="stick-crosshair"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="rc-buttons">
+                    <button id="arm-button" class="rc-btn">ARM</button>
+                    <button id="rth-button" class="rc-btn">RTH</button>
+                    <button id="emergency-button" class="rc-btn emergency">STOP</button>
+                </div>
+                <div class="keyboard-hint">
+                    Keys: W/S=Pitch | A/D=Roll | Arrows=Throttle/Yaw | R=Reset | C=Camera | Space=Stop
+                </div>
+            </div>
+
+            <!-- Flight Data Graphs (Bottom Left) -->
+            <div class="graphs-panel">
+                <div class="graphs-header">
+                    <span>FLIGHT DATA</span>
+                    <div class="graph-controls">
+                        <button id="pause-graph" class="graph-btn">⏸</button>
+                        <button id="clear-graph" class="graph-btn">🗑</button>
+                    </div>
+                </div>
+                <div class="graph-canvas-container">
+                    <canvas id="flight-graph"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Loading Screen -->
+    <div id="loading-screen">
+        <div class="loading-content">
+            <div class="spinner"></div>
+            <div class="loading-text">Loading UAV Simulator...</div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/cannon@0.6.2/build/cannon.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@3.9.1/dist/chart.min.js"></script>
+    <script src="js/utils/perlin-noise.js"></script>
+    <script src="js/utils/pid-controller.js"></script>
+    <script src="js/design-lab/calculations.js"></script>
+    <script src="js/design-lab/preview-renderer.js"></script>
+    <script src="js/design-lab/ui-handler.js"></script>
+    <script src="js/simulator/terrain-generator.js"></script>
+    <script src="js/simulator/uav-model.js"></script>
+    <script src="js/simulator/physics-engine.js"></script>
+    <script src="js/simulator/flight-controller.js"></script>
+    <script src="js/simulator/camera-controller.js"></script>
+    <script src="js/simulator/telemetry.js"></script>
+    <script src="js/utils/color-contrast.js"></script>
+    <script src="js/utils/flight-recorder.js"></script>
+    <script src="js/simulator/mission-manager.js"></script>
+    <script src="js/main.js"></script>
+</body>
+</html>
