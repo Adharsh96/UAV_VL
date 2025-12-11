@@ -4,6 +4,7 @@ class DesignLabUI {
         this.calculator = calculator;
         this.loadConfig(); // Load saved config on init
         this.initializeEventListeners();
+        window.ui = this; // Expose for global access/debugging
         this.updateUI();
     }
 
@@ -322,7 +323,9 @@ class DesignLabUI {
     }
 
     optimizeDesign() {
+        console.log("Optimize button clicked. Starting optimization...");
         const optimized = this.calculator.optimize();
+        console.log("Optimization complete:", optimized);
 
         // Helper to update UI to custom mode
         const setCustom = (selectId, inputId, value) => {

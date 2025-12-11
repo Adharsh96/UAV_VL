@@ -294,6 +294,7 @@
                 <div class="panel-header">
                     <h2>UAV Specifications</h2>
                     <button id="optimize-btn" class="optimize-btn" title="Auto-optimize for best TWR"
+                        onclick="if(window.ui) window.ui.optimizeDesign()"
                         style="margin-left: auto; font-size: 0.8rem; padding: 4px 8px; background: #2196F3; border: none; border-radius: 4px; color: white; cursor: pointer;">✨
                         Optimize</button>
                 </div>
@@ -329,7 +330,8 @@
                         <div class="tip">💡 Configure your UAV to see recommendations</div>
                     </div>
 
-                    <button id="launch-simulator" class="launch-button">
+                    <button id="launch-simulator" class="launch-button"
+                        onclick="if(window.ui) window.ui.launchSimulator()">
                         <span>🚁 LAUNCH SIMULATOR</span>
                     </button>
                 </div>
@@ -512,7 +514,7 @@
     <script src="js/utils/color-contrast.js"></script>
     <script src="js/utils/flight-recorder.js"></script>
     <script src="js/simulator/mission-manager.js"></script>
-    <script src="js/main.js"></script>
+    <script src="js/main.js?v=FIX_OPT"></script>
 </body>
 
 </html>

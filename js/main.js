@@ -322,7 +322,7 @@ class UAVSimulator {
 // Initialize application when DOM is loaded
 document.addEventListener('DOMContentLoaded', () => {
     // Create main app
-    const app = new UAVSimulatorApp();
+    window.app = new UAVSimulatorApp();
 
     // Create simulator instance (will be initialized when launched)
     window.uavSimulator = new UAVSimulator();
